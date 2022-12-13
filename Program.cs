@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//services.AddDbContext<DbContext>(options =>
+//      options.UseSqlServer(
+//          Configuration.GetConnectionString("DefaultConnection")));
+var conn = builder.Configuration.GetConnectionString("DBConnectionString");
+builder.Services.AddDbContext<MinapharmTask.DAL.DBContext>(options =>
+        options.UseSqlServer(conn)
+);
 
 var app = builder.Build();
 
